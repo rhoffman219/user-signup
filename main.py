@@ -18,7 +18,8 @@ app.config['DEBUG'] = True
 @app.route("/")
 def index():
     template = jinja_env.get_template('base.html')
-    return render_template(username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
+    return render_template('base.html', username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
+    
 
 @app.route("/", methods=['POST'])
 def validate():
