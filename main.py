@@ -1,9 +1,6 @@
 from flask import Flask, redirect, render_template, request
 import os
-import jinja2
 
-template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 
 
@@ -17,15 +14,15 @@ app.config['DEBUG'] = True
 
 @app.route("/")
 def index():
-    template = jinja_env.get_template('base.html')
-    return template.render(username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
+    
+    return render_template('base.html', username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
     
 
 @app.route("/", methods=['POST'])
 def validate():
     username = request.form['username']
     password = request.form['password']
-    verify_password = request.form['verify_password']
+    verify_password = request.form['verify']
     email = request.form['email']
 
     username_error = ''
@@ -51,20 +48,19 @@ def validate():
 
     if not username_error and not password_error and not verify_password_error and not email_error:
         #success!
-        template = jinja_env.get_template('welcome.html')
-        return template.render(username=username)
+        
+        return render_template('welcome.html', username=username)
     
     else:
-        template = jinja_env.get_template('base.html')
-        return template.render(username_error=username_error, password_error=password_error, verify_password_error=verify_password_error, email_error=email_error, username=username, password=password, verify_password=verify_password, email=email)
+        
+        return render_template('base.html', username_error=username_error, password_error=password_error, verify_password_error=verify_password_error, email_error=email_error, username=username, password=password, verify=verify_password, email=email)
 
 
 
 @app.route("/welcome", methods=['POST'])
 def welcome():
     username=request.form['username']
-    template = jinja_env.get_template('welcome.html')
-    return template.render(username=username)
+    return render_template('welcome.html', username=username)
 
 
 app.run()
