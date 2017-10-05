@@ -52,7 +52,7 @@ def validate():
     if not username_error and not password_error and not verify_password_error and not email_error:
         #success!
         template = jinja_env.get_template('welcome.html')
-        return render_template(username=username)
+        return render_template('welcome.html', username=username)
     
     else:
         template = jinja_env.get_template('base.html')
@@ -62,7 +62,9 @@ def validate():
 
 @app.route("/welcome", methods=['POST'])
 def welcome():
-    return render_template('welcome.html')
+    username=request.form['username']
+    template = jinja_env.get_template('welcome.html')
+    return render_template('welcome.html', username=username)
 
 
 app.run()
