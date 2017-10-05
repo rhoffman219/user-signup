@@ -18,7 +18,7 @@ app.config['DEBUG'] = True
 @app.route("/")
 def index():
     template = jinja_env.get_template('base.html')
-    return render_template('base.html', username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
+    return template.render(username='', username_error='', password='', password_error='', verify_password='', verify_password_error='', email='', email_error='')
     
 
 @app.route("/", methods=['POST'])
@@ -52,11 +52,11 @@ def validate():
     if not username_error and not password_error and not verify_password_error and not email_error:
         #success!
         template = jinja_env.get_template('welcome.html')
-        return render_template('welcome.html', username=username)
+        return template.render(username=username)
     
     else:
         template = jinja_env.get_template('base.html')
-        return render_template(username_error=username_error, password_error=password_error, verify_password_error=verify_password_error, email_error=email_error, username=username, password=password, verify_password=verify_password, email=email)
+        return template.render(username_error=username_error, password_error=password_error, verify_password_error=verify_password_error, email_error=email_error, username=username, password=password, verify_password=verify_password, email=email)
 
 
 
@@ -64,7 +64,7 @@ def validate():
 def welcome():
     username=request.form['username']
     template = jinja_env.get_template('welcome.html')
-    return render_template('welcome.html', username=username)
+    return template.render(username=username)
 
 
 app.run()
