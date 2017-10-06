@@ -38,13 +38,18 @@ def validate():
         password_error = "Please enter a valid password"
         password = ''
 
-    if not verify_password == password:
+    if verify_password != password:
         verify_password_error = "Your passwords don't match"
         verify_password = ''
 
-    if len(email) < 3 or len(email) > 20 or '@' not in email or '.' not in email:
-        email_error = "Please enter a valid email address"
+
+    if email == '':
         email = ''
+    
+    else:
+        if len(email) < 3 or len(email) > 20 or '@' not in email or '.' not in email:
+            email_error = "Please enter a valid email address"
+            email = ''
 
     if not username_error and not password_error and not verify_password_error and not email_error:
         #success!
