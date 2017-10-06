@@ -36,11 +36,11 @@ def validate():
 
     if len(password) < 3 or len(password) > 20 or password == '' or ' ' in password: 
         password_error = "Please enter a valid password"
-        password = ''
+        #password = ''
 
     if verify_password != password:
         verify_password_error = "Your passwords don't match"
-        verify_password = ''
+        #verify_password = ''
 
 
     if email == '':
